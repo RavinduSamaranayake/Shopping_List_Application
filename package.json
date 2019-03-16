@@ -4,8 +4,12 @@
   "description": "for manage shopping list items using MERN stack.",
   "main": "server.js",
   "scripts": {
+    "client-install": "npm install --prefix client",
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+     
   },
   "author": "Kushan Ravindu",
   "license": "ISC",
