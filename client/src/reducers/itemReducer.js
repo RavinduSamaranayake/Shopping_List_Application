@@ -18,6 +18,12 @@ export default function(state = initialState, action){
                 //i'm doing this for a reson because when we fetch from the API we're gonna change this up a little
                 //but for now it's just gonna fetch this hard coded data
              }
+        
+        case DELETE_ITEM:
+             return{
+                 ...state,
+                 items: state.items.filter(item => item.id !== action.payload)    
+             }
         default:
              return state
     }

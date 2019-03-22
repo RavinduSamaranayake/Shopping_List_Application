@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import uuid from 'uuid';
 import {connect} from 'react-redux';
-import {getItems} from '../actions/itemActions';
+import {getItems,deleteItem} from '../actions/itemActions';
 import PropTypes from 'prop-types';
 
 
 class ShoppingList extends Component {
 
 
-  componentDidMount(){  //this one runs when the component mounts that's usually when you want to if you are making any api request
-                        //or if you are calling an action this is where you want to do.
+  componentDidMount(){  //this one runs when the component mounts. that's usually when you want to if you are 
+                        //making any api request or if you are calling an action this is where you want to do.
     this.props.getItems();
+  }
+
+  onDeleteClick = id => {
+    this.props.deleteItem(id);
   }
    
 
@@ -23,7 +26,7 @@ class ShoppingList extends Component {
     const { items } = this.props.item;
     return (
       <Container> 
-        <Button
+        {/* <Button
           color="dark"
           style={{ marginBottom: '2rem' }}
           onClick={() => {
@@ -36,7 +39,7 @@ class ShoppingList extends Component {
           }}
         >
           Add Item
-        </Button>
+        </Button> */}
 
         <ListGroup>
           <TransitionGroup className="shopping-list">
@@ -47,11 +50,7 @@ class ShoppingList extends Component {
                     className="remove-btn"
                     color="danger"
                     size="sm"
-                    onClick={() => {
-                      this.setState(state => ({
-                        items: state.items.filter(item => item.id !== id)
-                      }));
-                    }}
+                    onClick={this.onDeleteClick.bind(this,id)} //we use 'bind' for pass the value for function
                   >
                     &times;
                   </Button>
@@ -73,9 +72,9 @@ ShoppingList.propTypes = {
 
 const mapStateToProps = (state) => ({   //this allows us to take our items state in this case this is our state and
                                         //we want to basically turn this or map this into component property so we can use it shopping lists
-     item: state.item                   //so we want to be able to use it as this.props.items
+    item: state.item                   //so we want to be able to use it as this.props.items
                                         
                                       
 });
 
-export default connect(mapStateToProps, {getItems})(ShoppingList);
+export default connect(mapStateToProps, {getItems,deleteItem})(ShoppingList);
