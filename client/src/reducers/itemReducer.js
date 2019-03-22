@@ -24,6 +24,14 @@ export default function(state = initialState, action){
                  ...state,
                  items: state.items.filter(item => item.id !== action.payload)    
              }
+
+        case ADD_ITEM:
+             return{
+                 ...state, //we use this '...' we can't actually mutate the state and we can't directly change it. because we have to basicly coppy of it
+                 items: [action.payload , ...state.items]    
+             }
+
+        
         default:
              return state
     }
