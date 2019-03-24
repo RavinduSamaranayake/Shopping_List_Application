@@ -43,14 +43,14 @@ class ShoppingList extends Component {
 
         <ListGroup>
           <TransitionGroup className="shopping-list">
-            {items.map(({ id, name }) => (
-              <CSSTransition key={id} timeout={500} classNames="fade">
+            {items.map(({ _id, name }) => (    //_id is a mongo db item id.
+              <CSSTransition key={_id} timeout={500} classNames="fade">
                 <ListGroupItem>
                   <Button
                     className="remove-btn"
                     color="danger"
                     size="sm"
-                    onClick={this.onDeleteClick.bind(this,id)} //we use 'bind' for pass the value for function
+                    onClick={this.onDeleteClick.bind(this,_id)} //we use 'bind' for pass the value for function
                   >
                     &times;
                   </Button>
